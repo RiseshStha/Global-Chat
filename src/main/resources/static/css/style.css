@@ -1,0 +1,471 @@
+:root{
+    --text-color: white;
+    --font-size: 1em;
+    --heading-font-size: 1.5em;
+    --backgroung-color: rgb(41, 41, 46);
+    --btn-hover-color: #2a2c2e;
+    --btn-color: #3a3b3c;
+    --box-shadow-color: #c3c3c333;
+    --font-size: 17px;
+    --font-color: white;
+    --leftBar-color: rgb(29, 28, 28);
+}
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+body{
+    background-color: rgb(41, 41, 46);
+    /* scroll-behavior: smooth; */
+
+}
+.top-bar{
+    flex-grow: 100%;
+}
+#chatHeader{
+    font-size: 1.5em;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.heading{
+    width: 100%;
+    margin: 0.7rem 0rem 0.7rem 0rem;
+    display: block;
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    /* border: 2px solid white; */
+}
+.flex-box{
+    display: flex;
+}
+.flex-column{
+    flex-direction: column;
+}
+.main-box{
+    border: 2px solid black;
+    height: 100vh;
+}
+
+/* LEFT  AND RIGHT BOX */
+.leftBar{
+    flex: 13%;
+    height: 100%;
+    background-color: rgb(29, 28, 28);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border: 2px solid blue;
+    background-color: var(--leftBar-color);
+}
+.right-box{
+    height: 100%;
+    flex: 87%;
+    border: 2px solid rgb(19, 222, 93);
+    z-index: 2;
+}
+.content-center{
+    align-items: center;
+}
+
+/* Navigation Bar */
+nav{
+    display: flex;
+    border-radius: 0.3rem;
+    height: 80%;
+    border: 2px solid blue;
+}
+.nav-list{
+    width: 100%;
+    padding-right: 3%;
+}
+
+.list{
+    display: block;
+    margin-top: 1rem;
+    padding: 15px;
+    text-decoration: none;
+    list-style: none;
+    margin-left: 0.5rem;
+    font-size: 1em;
+}
+.navItems{
+    margin: 0.5em;
+    padding: 1em;
+    text-decoration: none;
+    list-style: none;
+    /* margin-left: 0.5rem;
+    margin-right: 0.5rem; */
+
+}
+
+.userAccount{
+    display: flex;
+    border-radius: 0.3rem;
+    height: 20%;
+}
+
+/* -------------------------MENU BAR----------------------------------------- */
+#menu{
+    display: none;
+}
+.menu-bar-userA{
+    position: absolute;
+    z-index: 2;
+    top:2%;
+}
+.menu-close{
+    box-sizing: border-box;
+    height: 100vh;
+    width: 10%;
+    background-color: rgb(29, 28, 28);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    padding-right: 0.7%;
+    z-index: -1;
+    display: none;
+}
+#close-icon{
+    display: block;
+    font-size: 1.5em;
+    color: white;
+    text-align: center;
+    margin-top: 0.8em;
+}
+#check{
+    display: none;
+}
+#check-btn{
+    display: none;
+}
+
+/* -------------------------COntainer------------------------ */
+.container{
+    /* height: 83vh; */
+    flex-grow: 1;
+    flex-direction: column;
+    /* border: 2px solid blue; */
+    overflow-y:auto;
+    margin-bottom: 1%;
+    scroll-behavior: smooth;
+    
+}
+.hideScroll::-webkit-scrollbar{
+    display: none;
+    
+}
+/* --------------------------------Chat Message----------------------- */
+.message-box{
+    /* font-size: 1rem; */
+    background-color:rgb(29, 28, 28);
+    border-radius: 0.3rem;
+    color:aliceblue;
+    padding: 0.8%;
+    margin: 10px 17px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    max-width: 48%;
+    min-width: 15%;
+    width: auto;
+    /* align-items: center; */
+}
+.left{ 
+    /*Replace float with other layout, grid or flex*/
+    /* clear: both;
+    float: left; */
+}
+.right{
+    /* clear:both;
+    float: right; */
+    align-self: flex-end;
+}
+.message-timestamp{
+    font-size: 0.7em;
+    text-align: right;
+}
+.message-sender{
+    font-weight: bold;
+    margin-bottom: 0.3em;
+
+}
+.message-text{
+    margin-bottom: 0.3em;
+    word-wrap: break-word;
+}
+
+
+/* ---------------------Input Form of chat -------------- */
+#input1{
+    /* border: 2px solid yellow; */
+    height: 5%;
+    
+}
+
+.inputBox{
+    padding-left: 1rem;
+    display: inline-block;
+    width: 60vw;
+    height: 90%;
+    /* margin: auto; */
+    background-color: rgb(27, 26, 26);
+    border-radius: 0.7rem;
+    color: aliceblue;
+}
+#chat-input-form{
+    width: 85vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+.send-btn{
+    height:60%;
+    width: 6.5%;
+    align-self: center;
+    margin-left: 1%;
+}
+
+
+
+/* ALL HOVER */
+.list:hover{
+    background-color: var(--btn-hover-color);
+}
+.li-items:hover{
+    cursor: pointer;
+    background-color: var(--btn-hover-color);
+}
+.upinner-boxsize:hover{
+    background-color: var(--btn-hover-color);
+}
+
+/* #userAcc:hover{
+    background-color: var(--btn-hover-color);
+}
+#logout:hover{
+    background-color: var(--btn-hover-color);
+} */
+
+.btn{
+    color: aliceblue;
+    background-color:rgb(29, 28, 28);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 10%;
+    cursor: pointer;
+
+}
+.active-room{
+    /* background-color: #08529d; */
+    background-color: #3d5365;
+    box-shadow: 0 0 0.5em 0.1em #c3c3c333;
+}
+
+
+/* MENU PART */
+.menu-close{
+    display: none;
+}
+
+
+
+/* BackGround Image */
+.first-box{
+    height: 25%;
+    border: 2px solid white;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-left: 3em;
+    padding-right: 3em;
+    flex-grow: 2;
+}
+.upinner-box{
+    flex-direction: row;
+    column-gap: 1.6em;
+}
+.update-btns{
+    width: 35%;
+    display: flex;
+    column-gap: 2em;
+}
+.bg-image{
+    width: 100%;
+    height:20%;
+    flex-grow: 3;
+}
+.bg-image img{
+    position: relative;
+    width: 100%;
+    height:100%;
+    z-index: 2;
+}
+/* =================== USer RElated =========================*/
+#upper-box{
+    height: 30%;
+    border: 2px solid red;
+    flex-grow:1;
+    width: 100%;
+}
+#profile-img{
+    height:120px;
+    width: 120px;
+    border-radius: 50%;
+    border: 2px solid white;
+    z-index: 2;
+    
+}
+.user_info{
+    justify-content: center;
+    row-gap: 0.3em;
+}
+
+/* PROFILE */
+/* #profile{
+    height:10%;
+    width: 10%;
+    border: 2px solid white;
+} */
+
+/* MIDDLE BOX */
+.middle-box{
+    flex-grow:3;
+    width: 100%;
+}
+.li-items{
+    /* text-align:left; */
+    /* margin-top: 2rem; */
+    margin: 0.3rem 0.7em 0rem 0rem;
+    padding: 15px;
+    text-decoration: none;
+    list-style:none;
+    margin-left: 0.5rem;
+}
+.li-items.active{
+    border-bottom: 2px solid white;
+    font-weight: bold;
+}
+.mid-nav{
+    border-bottom:2px solid var(--box-shadow-color);
+}
+
+/* ============ CONTENT ========================== */
+.content{
+    height: 100%;
+}
+#content-aboutUs{
+    display: none;
+}
+#content-pers{
+    /* display:none; */
+
+}
+#content-contact{
+    display: none;
+
+}
+.content-box{
+    display: flex;
+    flex-direction: column;
+    margin:auto;
+    width: 93%;
+    height: 80%;
+    row-gap:1em;
+}
+
+/*  =============== Footer THEME SELECTION ======================== */
+.radio-btns{
+    width: 24%;
+    height: 9%;
+    background-color: var(--backgroung-color);
+    color: white;
+    border-radius: 1%;
+}
+
+/* FOOTER */
+footer{
+    align-items: flex-end;
+    border: 2px solid rgb(0, 11, 128);
+}
+footer h4{
+    text-align: center;
+    color: var(--font-color);
+    font-size: 13px;
+}
+
+/* Utility Class */
+.text{
+    color: var(--text-color);
+    font-size: var(--font-size);
+}
+.upinner-boxsize{
+    padding: 0.4em;
+    width: 43%;
+    background-color: var(--btn-color);
+    border-radius: 5%;
+}
+
+
+
+
+/*------------------------------ Utility Classes ------------------------------*/
+.text{
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.center {
+    text-align: center;
+}
+
+
+/* ===============================> Profile Page <============================ */
+#theme-select{
+    
+}
+#font-select{
+
+}
+
+
+
+/* =====================Media Query User Account Page =================*/
+/* @media only screen and (min-width: 650px) and (max-width:900px){
+    .first-box{
+        padding: 0em 0.5em 0em 0.5em;
+        justify-content:flex-start;
+        column-gap: 4em;
+    }
+    .update-btns{
+        width: 40%;
+        align-self:auto;
+    }
+    .radio-btns{
+        width: 30%;
+    }
+    
+} */
+
+/* ==========================> ABout Us page <====================================*/
+
+  .header {
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+
+
+  .about-box {
+    margin: 20px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }
+  p, h2 {
+    color: white;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 2rem;
+  }
+
+    #abImg {
+    margin: 0% 40% 0% 40%;
+    max-width: 100%;
+    width: 30%;
+    height: 30%;
+    border-radius: 10%;
+  }

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="Css/style.css" />
+    <link rel="stylesheet" href="Css/phone.css" />
+    <title>About Us</title>
+  </head>
+  <body>
+    <div class="flex-box main-box">
+      <div class="leftBar flex-column">
+        <!-- <div class="left-box flex-column"> -->
+        <nav class="nav-bar">
+          <ul class="text nav-list">
+            <li id="globalChat">
+              <a th:href="@{/globalchat}" class="list btn active-room"
+                >Global Chat</a
+              >
+            </li>
+            <li id="aboutUs">
+              <a th:href="@{/aboutus}" class="list btn active-room">About Us</a>
+            </li>
+          </ul>
+        </nav>
+        <div id="userAccount">
+          <ul class="nav-list">
+            <li id="userAcc">
+              <a th:href="@{/profile}" class="list btn active-room">Profile</a>
+            </li>
+            <li id="logout">
+              <a th:href="@{/logout}" class="list btn active-room">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <input type="checkbox" id="check" />
+      <label for="check" id="check-btn">
+        <i class="fas fa-bars"></i>
+      </label>
+      <div class="menu-close">
+        <label id="close-icon">
+          <i class="fa fa-window-close" aria-hidden="true"></i>
+        </label>
+      </div>
+      <!-- ============RIGHT BOX=================== -->
+      <div class="right-box flex-box flex-column content-center">
+        <header class="header">
+          <h1>About Us</h1>
+        </header>
+      
+        <main class="about-box hideScroll">
+          <img id="abImg" src="/images/myImg.jpg" alt="Our Team">
+          <h2>Our Story</h2>
+          <p>College students following the their own passion and learning this from outside world other than clz.</p>
+      
+          <h2>Our Team</h2>
+          <p>RSS Group</p>
+      
+          <h2>Our Mission</h2>
+          <p>Sharing all the information and chat with all people over the world.</p>
+      
+        </main>
+
+        <!-- ============ FOOTER =================== -->
+        <footer>
+          <h4>Copyright &copy www.globalchat.org</h4>
+        </footer>
+      </div>
+    </div>
+  </body>
+  <script>
+    const menuBtn = document.querySelector("#check-btn");
+    const leftBar = document.querySelector(".leftBar");
+    const menuClose = document.querySelector(".menu-close");
+    const closeBtn = document.querySelector("#close-icon");
+    const openPage = () => {
+      menuBtn.classList.toggle("active");
+      leftBar.classList.toggle("active");
+      menuClose.classList.toggle("active");
+      console.log("bTN cLICK");
+    };
+    const closePage = () => {
+      menuClose.classList.remove("active");
+      menuBtn.classList.toggle("active");
+      leftBar.classList.remove("active");
+    };
+
+    closeBtn.onclick = () => closePage();
+    menuBtn.onclick = () => openPage();
+  </script>
+</html>
+<!--Justify content for making right and left bar-->

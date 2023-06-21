@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{css/style.css}" />
+    <link rel="stylesheet" th:href="@{css/phone.css}" />
+    <title>Global Chat</title>
+  </head>
+  <body>
+    <div class="flex-box main-box" th:method="@{post}" th:action="@{/profile}">
+      <div class="leftBar flex-column">
+        <!-- <div class="left-box flex-column"> -->
+        <nav class="nav-bar">
+          <ul class="text nav-list">
+            <li id="globalChat">
+              <a th:href="@{/globalchat}" class="list btn active-room">Global Chat</a>
+            </li>
+            <li id="aboutUs">
+              <a th:href="@{/aboutus}" class="list btn active-room">About Us</a>
+            </li>
+          </ul>
+        </nav>
+        <div id="userAccount">
+          <ul class="nav-list">
+            <li id="userAcc">
+              <a th:href="@{/profile}" class="list btn active-room">Profile</a>
+            </li>
+            <li id="logout">
+              <a th:href="@{/logout}" class="list btn active-room">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <input type="checkbox" id="check" />
+      <label for="check" id="check-btn">
+        <i class="fas fa-bars"></i>
+      </label>
+      <div class="menu-close">
+        <label id="close-icon">
+          <i class="fa fa-window-close" aria-hidden="true"></i>
+        </label>
+      </div>
+      <!-- ============RIGHT BOX=================== -->
+      <div class="right-box flex-box flex-column">
+        <!-- ===========================Starting Profile page code from here=========== -->
+        <div id="upper-box" class="flex-box flex-column">
+          <!-- ============ Background Image =================== -->
+          <div class="bg-image">
+            <img
+              src="https://codetheweb.blog/assets/img/posts/css-advanced-background-images/cover.jpg"
+              alt=""
+            />
+          </div>
+          <div class="first-box">
+            <div class="upinner-box flex-box">
+              <img
+                id="profile-img"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZBZgpadvnLQBPqEzSM5yQ32yOUqH5tGtEFKpGIiqQ8ReSGPQHn-N8XvxAjHoZ9lBFu_g&usqp=CAU"
+                alt=""
+              />
+              <div class="user_info flex-box flex-column text">
+                <div id="name">Rishesh</div>
+                <div id="email">risesh@gmail.com</div>
+              </div>
+            </div>
+  
+            <div class="update-btns">
+              <button class="btn upinner-boxsize" type="submit">
+                Edit Name
+              </button>
+              <button class="btn upinner-boxsize" type="submit">
+                Edit Profile
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        <div class="middle-box flex-box flex-column">
+          <div class="mid-nav">
+            <ul class="text flex-box">
+              <li id="personlize" class="li-items active">Personalization</li>
+              <li id="Contact Us" class="li-items">Contact Us</li>
+            </ul>
+          </div>
+          <div class="content flex-box">
+            <div id="content-pers" class="text content-box">
+              <h4>Theme</h4>
+              <select id="theme-select" class="radio-btns text">
+                <option value="0">Dark</option>
+                <option value="1">Light</option>
+              </select>
+              <h4>Font Style</h4>
+              <select id="font-select" class="radio-btns text">
+                <option value="0">Normal</option>
+                <option value="1">Times New Roman</option>
+              </select>
+            </div>
+            <div
+              id="content-contact"
+              class="text content-box flex-box flex-column"
+            >
+              <div>
+                <h3>Contact Us</h3>
+              </div>
+              <h4>Email :</h4>
+              <p>globalchat@gmail.com</p>
+              <h4>Phone no :</h4>
+              <p>9882463764</p>
+            </div>
+          </div>
+          </div>
+        <!-- ========================Profile Section ends here=========================== -->
+  
+        
+        <!-- ============ FOOTER =================== -->
+        <footer>
+          <h4>Copyright &copy www.globalchat.org</h4>
+        </footer>
+      </div>
+    </div>
+  </body>
+  <script>
+    const menuBtn = document.querySelector("#check-btn");
+    const leftBar = document.querySelector(".leftBar");
+    const menuClose = document.querySelector(".menu-close");
+    const closeBtn = document.querySelector("#close-icon");
+    const openPage = () => {
+      menuBtn.classList.toggle("active");
+      leftBar.classList.toggle("active");
+      menuClose.classList.toggle("active");
+      console.log("bTN cLICK");
+    };
+    const closePage = () => {
+      menuClose.classList.remove("active");
+      leftBar.classList.remove("active");
+      menuBtn.classList.toggle("active");
+    };
+
+    closeBtn.onclick = () => closePage();
+    menuBtn.onclick = () => openPage();
+  </script>
+</html>
+<!--Justify content for making right and left bar-->
