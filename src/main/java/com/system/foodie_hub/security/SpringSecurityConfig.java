@@ -39,7 +39,7 @@ public class SpringSecurityConfig {
             throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/login","/authenticate" ,"/user/**","/css/**")
+                .requestMatchers("/login","/authenticate" ,"/user/**","/css/**", "Js/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

@@ -118,6 +118,9 @@ ul {
 #chat-input-form {
   width: 100%;
 }
+#input1{
+  height: 5%;
+}
 
 #rightBoxHeight {
   height: 100vh;
