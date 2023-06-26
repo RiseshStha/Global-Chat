@@ -1,0 +1,123 @@
+<!--<html>-->
+<!--<head>-->
+<!--    <title>Chat WebSocket</title>-->
+
+<!--    <script src="/Js/sock.js"></script>-->
+<!--    <script src="/Js/stomp.js"></script>-->
+
+<!--    <script type="text/javascript">-->
+
+<!--        var stompClient = null;-->
+
+<!--        function setConnected(connected) {-->
+
+<!--            document.getElementById('connect').disabled = connected;-->
+<!--            document.getElementById('disconnect').disabled = !connected;-->
+<!--            document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';-->
+<!--            document.getElementById('response').innerHTML = '';-->
+<!--        }-->
+
+<!--        function connect() {-->
+
+<!--            var socket = new SockJS('/chat');-->
+<!--            stompClient = Stomp.over(socket);-->
+
+<!--            stompClient.connect({}, function (frame) {-->
+
+<!--                setConnected(true);-->
+<!--                console.log('Connected: ' + frame);-->
+<!--                stompClient.subscribe('/topic/messages', function (messageOutput) {-->
+
+<!--                    showMessageOutput(JSON.parse(messageOutput.body));-->
+<!--                });-->
+<!--            });-->
+<!--        }-->
+
+<!--        function disconnect() {-->
+
+<!--            if (stompClient != null) {-->
+<!--                stompClient.disconnect();-->
+<!--            }-->
+
+<!--            setConnected(false);-->
+<!--            console.log("Disconnected");-->
+<!--        }-->
+
+<!--        function sendMessage() {-->
+
+<!--            var from = document.getElementById('from').value;-->
+<!--            var text = document.getElementById('text').value;-->
+<!--            stompClient.send("/app/chat", {}, JSON.stringify({'from': from, 'text': text}));-->
+<!--        }-->
+
+<!--        function showMessageOutput(messageOutput) {-->
+
+<!--            var response = document.getElementById('response');-->
+<!--            var p = document.createElement('p');-->
+<!--            p.style.wordWrap = 'break-word';-->
+<!--            p.appendChild(document.createTextNode(messageOutput.from + ": " + messageOutput.text + " (" + messageOutput.time + ")"));-->
+<!--            response.appendChild(p);-->
+<!--        }-->
+
+<!--    </script>-->
+
+<!--</head>-->
+
+<!--<body onLoad="disconnect()">-->
+
+<!--<div>-->
+
+
+<!--    <div>-->
+<!--        <input type="text" id="from" placeholder="Choose a nickname"/>-->
+<!--    </div>-->
+<!--    <br/>-->
+<!--    <div>-->
+<!--        <button id="connect" onClick="connect();">Connect</button>-->
+<!--        <button id="disconnect" disabled="disabled" onClick="disconnect();">Disconnect</button>-->
+<!--    </div>-->
+<!--    <br/>-->
+<!--    <div id="conversationDiv">-->
+<!--        <input type="text" id="text" placeholder="Write a message..."/>-->
+<!--        <button id="sendMessage" onClick="sendMessage();">Send</button>-->
+<!--        <p id="response"></p>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<head>
+    <title>Pusher Test</title>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+    <script>
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('07702d38cfb7823f21b8', {
+            cluster: 'ap2'
+        });
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+            alert(JSON.stringify(data));
+        });
+    </script>
+</head>
+<body>
+<h1>Pusher Test</h1>
+<p>
+    Try publishing an event to channel <code>my-channel</code>
+    with event name <code>my-event</code>.
+
+    <form action="/trigger" method="post">
+    <label>Message</label>
+    <input type="text" name="text" />
+
+    <input type="submit" value="submit"/>
+</form>
+</p>
+</body>

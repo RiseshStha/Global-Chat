@@ -39,10 +39,12 @@ public class SpringSecurityConfig {
             throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/login","/authenticate" ,"/user/**","/css/**", "Js/**")
+                .requestMatchers("/login","/authenticate",
+                        "/chatPage/**","/chat/**","/chat/info"
+                        ,"/user/**","/css/**", "Js/**")
                 .permitAll()
                 .anyRequest()
-                .authenticated()
+                .permitAll()
                 //for thymeleaf
                 .and()
                 .formLogin()

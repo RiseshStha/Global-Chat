@@ -44,6 +44,47 @@ const sendMessage = (e) => {
     chatMessage.innerHTML+=createChatMessageElements(message);
     chatInputForm.reset(); // to clear the input fields after sending the message
     container.scrollTop = container.scrollHeight;
+
+    //MEssage section
+
+    fetch('/getMessage', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(message),
+    })
+        .then(response => {
+            // Handle the response from the server
+            console.log('Data sent successfully');
+        })
+        .catch(error => {
+            // Handle any errors
+            console.error('Error:', error);
+        });
+
+
+    //MEssage section ENDS HERE
 }
 container.scrollTop = container.scrollHeight;
 chatInputForm.addEventListener('submit', sendMessage);
+
+
+//Message
+const Fetch = ()=>{
+    fetch('/api/data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(message),
+    })
+        .then(response => {
+            // Handle the response from the server
+            console.log('Data sent successfully');
+        })
+        .catch(error => {
+            // Handle any errors
+            console.error('Error:', error);
+        });
+}
