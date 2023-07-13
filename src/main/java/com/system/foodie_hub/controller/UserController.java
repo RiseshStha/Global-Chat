@@ -3,6 +3,7 @@ package com.system.foodie_hub.controller;
 
 import com.system.foodie_hub.entity.user_management.User;
 import com.system.foodie_hub.pojo.user_management.UserPojo;
+import com.system.foodie_hub.services.user_management.MessageService;
 import com.system.foodie_hub.services.user_management.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final MessageService messageService;
     public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/file_server";
 
     @GetMapping
@@ -50,22 +52,6 @@ public class UserController {
         return "register";
     }
 
-//    @PostMapping("/create")
-//    public String createUser(@Valid UserPojo userPojo,
-//                             BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
-//
-//        Map<String, String> requestError = validateRequest(bindingResult);
-//        if (requestError != null) {
-//            redirectAttributes.addFlashAttribute("requestError", requestError);
-//            return "redirect:/user/register";
-//        }
-//
-//        userService.save(userPojo);
-//        redirectAttributes.addFlashAttribute("successMsg", "User saved successfully");
-//
-//
-//        return "redirect:/user/list";
-//    }
     @PostMapping("save")
     public String saveData(@Valid UserPojo userPojo,
                            BindingResult bindingResult) throws IOException {
@@ -93,7 +79,12 @@ public class UserController {
     public String saveData3(@Valid UserPojo userPojo,
                            BindingResult bindingResult) throws IOException {
         userService.update2(userPojo);
+        updateSenderName();
         return "redirect:/profile";
+    }
+    public void updateSenderName(){
+        String senderName = getUser(getCurrentUser()).getFullName();
+        messageService.updateSender(senderName, getCurrentUser());
     }
 
     @PostMapping("/create")
@@ -140,11 +131,16 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+    public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes, Authentication authentication) {
+        messageService.deleteByEmail(getCurrentUser());
         userService.deleteById(id);
         redirectAttributes.addFlashAttribute("deleteMsg", "Row delete successfully");
-        return "redirect:/user/list";
+        if (authentication.isAuthenticated()) {
+            SecurityContextHolder.clearContext();
+        }
+        return "redirect:/login";
     }
+
 
     public Map<String, String> validateRequest(BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
@@ -160,9 +156,6 @@ public class UserController {
 
     }
 
-    //    private String convertImageToBase64(String filename) {
-//        String filePath = System.getProperty("user.dir") + "/canteen_mgmt/" + filename;
-//    }
 
     @GetMapping("/edit")
     public String getUserId(Model model){

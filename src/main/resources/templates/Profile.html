@@ -145,6 +145,10 @@
             <option value="0">Normal</option>
             <option value="1">Times New Roman</option>
           </select>
+          <form id="delete-acc" th:action="@{/user/}+${user.getId()}">
+            <h3>Delete Account</h3>
+            <button id="del-btn" type="submit" class="btn">Delete</button>
+          </form>
         </div>
         <div id="content-contact" class="text content-box flex-box flex-column">
           <div>

@@ -322,11 +322,20 @@ nav{
 }
 
 /* PROFILE */
-/* #profile{
-    height:10%;
-    width: 10%;
-    border: 2px solid white;
-} */
+#delete-acc{
+    display: flex;
+    flex-direction: column;
+    row-gap: 21%;
+    height: 20%;
+}
+
+#del-btn{
+    width: 9%;
+    height: 32%;
+    background-color: red;
+}
+
+
 
 /* MIDDLE BOX */
 .middle-box{

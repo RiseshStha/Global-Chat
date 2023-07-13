@@ -9,4 +9,6 @@ import java.util.List;
 public interface MessageService {
     MessagePojo save(MessagePojo messagePojo) throws IOException;
     List<Message> fetchAll();
+    void deleteByEmail(String email);
+    void updateSender(String email, String name);
 }

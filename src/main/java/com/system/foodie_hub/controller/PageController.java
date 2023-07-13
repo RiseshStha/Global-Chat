@@ -74,13 +74,13 @@ public class PageController {
         return "AboutUs";
     }
 
-    @GetMapping ("/logout")
-    public String logout(Authentication authentication) {
-        if (authentication.isAuthenticated()) {
-            SecurityContextHolder.clearContext();
-        }
-        return "redirect:/login";
-    }
+//    @GetMapping ("/logout")
+//    public String logout(Authentication authentication) {
+//        if (authentication.isAuthenticated()) {
+//            SecurityContextHolder.clearContext();
+//        }
+//        return "redirect:/login";
+//    }
     @GetMapping ("newglobal")
     public String getNewGlobalPage(Model model){
         model.addAttribute("message", new MessagePojo());

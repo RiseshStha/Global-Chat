@@ -20,6 +20,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
@@ -119,6 +121,7 @@ public class UserServiceImpl implements UserService {
         userRepo.save(user);
     }
 
+
     public List<User> fetchAll() {
         return userRepo.findAll();
     }
@@ -163,16 +166,4 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-//    @Override
-//    public AuthenticationResponse authenticate(LoginDto loginDto) {
-//        authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        loginDto.getEmail(), loginDto.getPassword()
-//                )
-//        );
-//
-////        UserDetails userDetails = userRepo.findByEmail(loginDto.getEmail()).orElseThrow(() -> new EntityNotFoundException("User not found."));
-////        String jwtToken = jwtService.generateToken(userDetails);
-////        return AuthenticationResponse.builder().token(jwtToken).build();
-//    }
 }

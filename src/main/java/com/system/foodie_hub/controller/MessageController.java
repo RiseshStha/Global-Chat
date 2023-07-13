@@ -1,10 +1,13 @@
 package com.system.foodie_hub.controller;
 
 import com.system.foodie_hub.entity.user_management.Message;
+import com.system.foodie_hub.entity.user_management.User;
 import com.system.foodie_hub.pojo.user_management.MessagePojo;
 import com.system.foodie_hub.services.user_management.MessageService;
+import com.system.foodie_hub.services.user_management.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +27,7 @@ import java.util.List;
 @RequestMapping("/")
 public class MessageController {
     private final MessageService messageService;
+    private final UserService userService;
     @PostMapping("/sendMessage")
     public String sendMessage(@Valid MessagePojo messagePojo,
                               BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException{
@@ -38,19 +42,6 @@ public class MessageController {
         return "redirect:/global.html";
     }
 
-//    @PostMapping("/sendMessage")
-//    public String sendMessage(@Valid MessagePojo messagePojo,
-//                              BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException{
-//        System.out.println(messagePojo.getContent());
-////        messagePojo.setSender(getCurrentUser()); uncomment this after debugging code
-//        messagePojo.setSender("hero@gmail.com");
-//        messagePojo.setTime(getCurrentTime());
-////        messagePojo.setEmail(getCurrentUser()); uncomment this after debugging code
-//        messagePojo.setEmail("hero@gmail.com");
-//        messageService.save(messagePojo);
-//        redirectAttributes.addFlashAttribute("successMsg", "User saved successfully");
-//        return "redirect:/newGlobal2";
-//    }
 
 
     @PostMapping("/getMessage")
@@ -58,12 +49,10 @@ public class MessageController {
         messageService.save(messagePojo);
     }
 
-//    public String getMessage(Model model) {
-//        model.addAttribute("message", new MessagePojo());
-//        return "newglobal";
-//    }
-
-//    @GetMapping("/current-user")
+    public void updateSenderName(){
+        String senderName = getUser(getCurrentUser()).getFullName();
+        messageService.updateSender(getCurrentUser(), senderName);
+    }
     public String CurrentUser(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
@@ -76,14 +65,6 @@ public class MessageController {
         return currentUsername;
     }
 
-    // Alternative approach using @AuthenticationPrincipal
-//    @GetMapping("/current-user-alt")
-    public String getCurrentUserAlt(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        String currentUsername = userDetails.getUsername();
-        model.addAttribute("currentUser", currentUsername);
-        return currentUsername;
-
-    }
     public String getCurrentTime() {
         LocalDateTime currentTime = LocalDateTime.now();
         int hour = currentTime.getHour();
@@ -118,20 +99,8 @@ public class MessageController {
         return "newglobal";
     }
 
-//    @PostMapping("/create")
-//    public String createUser(@Valid UserPojo userPojo,
-//                             BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
-//
-//        Map<String, String> requestError = validateRequest(bindingResult);
-//        if (requestError != null) {
-//            redirectAttributes.addFlashAttribute("requestError", requestError);
-//            return "redirect:/login";
-//        }
-//
-//        userService.save(userPojo);
-//        redirectAttributes.addFlashAttribute("successMsg", "User saved successfully");
-//
-//
-//        return "redirect:/login";
-//    }
+    public User getUser(String email) {
+        User u = userService.fetchByEmail(email);
+        return u;
+    }
 }

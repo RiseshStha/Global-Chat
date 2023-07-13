@@ -23,19 +23,11 @@ public class LoginController {
     private final UserService userService;
 
     @GetMapping("/login")
-//    public String getPage() {
-//
-//        return "login";
-//    }
     public String getPage(Model model) {
         model.addAttribute("user", new UserPojo());
         return "login";
     }
 
-//    @PostMapping("/authenticate")
-//    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody LoginDto loginDto) {
-//        return ResponseEntity.ok(userService.authenticate(loginDto));
-//    }
 
     @GetMapping("/register")
     public String getRegister(Model model) {
