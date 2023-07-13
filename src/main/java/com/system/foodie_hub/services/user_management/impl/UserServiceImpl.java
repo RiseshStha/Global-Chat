@@ -26,9 +26,13 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +42,7 @@ public class UserServiceImpl implements UserService {
     private final EmailCredRepo emailCredRepo;
     private final ThreadPoolTaskExecutor taskExecutor;
     private final AuthenticationManager authenticationManager;
+    private final String UPLOAD_DIRECTORY=System.getProperty("user.dir")+"/file_server";
 
     @Autowired
     @Qualifier("emailConfigBean")
@@ -45,7 +50,6 @@ public class UserServiceImpl implements UserService {
 
 
     private final UserRepo userRepo;
-    public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/canteen_mgmt";
 //
 //    UserServiceImpl(UserRepo userRepo) {
 //        this.userRepo = userRepo;
@@ -58,8 +62,61 @@ public class UserServiceImpl implements UserService {
         user.setFullName(userPojo.getFullname());
         user.setMobileNo(userPojo.getMobile_no());
         user.setPassword(PasswordEncoderUtil.getInstance().encode(userPojo.getPassword()));
+
+        if(userPojo.getImage()!=null){
+            StringBuilder fileNames = new StringBuilder();
+            System.out.println(UPLOAD_DIRECTORY);
+            Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, userPojo.getImage().getOriginalFilename());
+            fileNames.append(userPojo.getImage().getOriginalFilename());
+            Files.write(fileNameAndPath, userPojo.getImage().getBytes());
+
+            user.setImage(userPojo.getImage().getOriginalFilename());
+        }
+
         userRepo.save(user);
         return new UserPojo(user);
+    }
+
+    @Override
+    public void update(UserPojo userPojo) throws IOException {
+        User user = new User();
+        user.setId(userPojo.getId());
+        user.setEmail(userPojo.getEmail());
+        user.setFullName(userPojo.getFullname());
+        user.setMobileNo(userPojo.getMobile_no());
+        if(userPojo.getPassword()!=null) {
+            user.setPassword(PasswordEncoderUtil.getInstance().encode(userPojo.getPassword()));
+        }
+        if(userPojo.getImage()!=null){
+            StringBuilder fileNames = new StringBuilder();
+            System.out.println(UPLOAD_DIRECTORY);
+            Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, userPojo.getImage().getOriginalFilename());
+            fileNames.append(userPojo.getImage().getOriginalFilename());
+            Files.write(fileNameAndPath, userPojo.getImage().getBytes());
+
+            user.setImage(userPojo.getImage().getOriginalFilename());
+        }
+
+        userRepo.save(user);
+    }
+
+
+    @Override
+    public void update2(UserPojo userPojo) throws IOException {
+        User user =userRepo.findById(userPojo.getId()).get();
+        user.setFullName(userPojo.getFullname());
+
+        if(userPojo.getImage()!=null){
+            StringBuilder fileNames = new StringBuilder();
+            System.out.println(UPLOAD_DIRECTORY);
+            Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, userPojo.getImage().getOriginalFilename());
+            fileNames.append(userPojo.getImage().getOriginalFilename());
+            Files.write(fileNameAndPath, userPojo.getImage().getBytes());
+
+            user.setImage(userPojo.getImage().getOriginalFilename());
+        }
+
+        userRepo.save(user);
     }
 
     public List<User> fetchAll() {
@@ -68,6 +125,11 @@ public class UserServiceImpl implements UserService {
 
     public User fetchById(Integer id) {
         return userRepo.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
+    }
+
+    @Override
+    public User fetchByEmail(String email) {
+        return userRepo.findByEmail(email).orElseThrow(() -> new RuntimeException("Not Found"));
     }
 
     public void deleteById(Integer id) {

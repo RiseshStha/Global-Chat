@@ -31,43 +31,44 @@ const updateMessageSender = (name)=>{
     inputs.placeholder = `Type here ${messageSender}`;
 }
 
-const sendMessage = (e) => {
-    e.preventDefault(); // preventing screen or page from refreshing.
-    console.log(inputs.value)
-    const timestamp = new Date().toLocaleString('en-US',{hour:'numeric', minute:'numeric', hour12:true})
-    const message = {
-        sender: messageSender,
-        text: inputs.value,
-        timestamp,
-    }
-    //adding message to message container
-    chatMessage.innerHTML+=createChatMessageElements(message);
-    chatInputForm.reset(); // to clear the input fields after sending the message
-    container.scrollTop = container.scrollHeight;
-
-    //MEssage section
-
-    fetch('/getMessage', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(message),
-    })
-        .then(response => {
-            // Handle the response from the server
-            console.log('Data sent successfully');
-        })
-        .catch(error => {
-            // Handle any errors
-            console.error('Error:', error);
-        });
 
 
-    //MEssage section ENDS HERE
-}
-container.scrollTop = container.scrollHeight;
-chatInputForm.addEventListener('submit', sendMessage);
+
+// const sendMessage = (e) => {
+//     e.preventDefault(); // preventing screen or page from refreshing.
+//     console.log(inputs.value)
+//     const timestamp = new Date().toLocaleString('en-US',{hour:'numeric', minute:'numeric', hour12:true})
+//     const message = {
+//         sender: messageSender,
+//         text: inputs.value,
+//         timestamp,
+//     }
+//     //adding message to message container
+//     chatMessage.innerHTML+=createChatMessageElements(message);
+//     chatInputForm.reset(); // to clear the input fields after sending the message
+//     container.scrollTop = container.scrollHeight;
+//
+//     //MEssage section
+//
+//     fetch('/getMessage', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(message),
+//     })
+//         .then(response => {
+//             // Handle the response from the server
+//             console.log('Data sent successfully');
+//         })
+//         .catch(error => {
+//             // Handle any errors
+//             console.error('Error:', error);
+//         });
+//     //MEssage section ENDS HERE
+// }
+// container.scrollTop = container.scrollHeight;
+// chatInputForm.addEventListener('submit', sendMessage);
 
 
 //Message

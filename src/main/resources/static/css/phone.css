@@ -2,6 +2,86 @@
   .leftBar{
       flex: 18%;
   }
+  /* ============================> POPUP <================================*/
+  .popup{
+    position: fixed;
+    top: 34%;
+    right: 10%;
+    height: 40%;
+    width: 60%;
+    border: 2px solid white;
+    z-index: 5;
+    /* row-gap: 10%;*/
+
+  }
+  #pop-close{
+    margin-top: 3%;
+    margin-right: 5%;
+    align-self: flex-end;
+    color:var(--font-color);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: var(--font-size);
+
+  }
+  .inside-pop{
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    row-gap: 7%;
+  }
+  .input-box{
+    width: 80%;
+    height: 16%;
+    padding: 2%;
+    background-color: rgb(27, 26, 26);
+    border-radius: 0.7rem;
+    color: aliceblue;
+  }
+  #bottom-btn{
+    width: 35%;
+    height: 23%;
+  }
+  #btm-btn{
+    height: 100%;
+    width: 100%;
+  }
+  .popup form{
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    flex: 1;
+    align-content: center;
+    row-gap: 10%;
+
+  }
+}
+
+@media only screen and (min-width: 1000px){
+  .popup{
+    position: fixed;
+    top: 34%;
+    right: 20%;
+    height: 40%;
+    width: 45%;
+    border: 2px solid white;
+    z-index: 5;
+  }
+  .popup form{
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    flex: 1;
+    align-content: center;
+    row-gap: 10%;
+
+  }
+  #inp-img{
+    width: 30%;
+  }
+  .inp-img{
+    height: 26%;
+  }
 }
 
 /* @media only screen and (min-width: 300px) and (max-width: 650px) { */
@@ -223,6 +303,41 @@ p, h2 {
 p, h2 {
   font-size: 1rem;
 }
+}
+
+
+
+@media only screen and (min-width: 650px) and (max-width: 880px) {
+  .first-box {
+    padding: 0em 0.5em 0em 0.5em;
+    /* justify-content: flex-start; */
+    row-gap: 2em;
+    column-gap: 2em;
+  }
+
+  .update-btns {
+    width: 44%;
+    align-self: auto;
+  }
+
+  .radio-btns {
+    width: 30%;
+  }
+
+  p, h2 {
+    font-size: 1rem;
+  }
+
+  /* ============================> POPUP <================================*/
+  .popup form {
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    flex: 1;
+    align-content: center;
+    row-gap: 10%;
+
+  }
 }
 
 /* 

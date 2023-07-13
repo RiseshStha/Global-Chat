@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +22,11 @@ public class MessageServiceImpl implements MessageService {
         message.setTime(messagePojo.getTime());
         message.setSender(messagePojo.getSender());
         message.setContent(messagePojo.getContent());
+        message.setEmail(messagePojo.getEmail());
         messageRepo.save(message);
-        return messagePojo;
+        return new MessagePojo(message);
+    }
+    public List<Message> fetchAll() {
+        return messageRepo.findAll();
     }
 }

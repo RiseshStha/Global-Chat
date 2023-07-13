@@ -36,6 +36,11 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+    private String image;
+
+    @Transient
+    private String imageBase64;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -47,6 +52,7 @@ public class User implements UserDetails {
     public String getUsername() {
         return this.email;
     }
+
 
     @Override
     public boolean isAccountNonExpired() {

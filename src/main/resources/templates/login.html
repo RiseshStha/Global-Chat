@@ -67,16 +67,16 @@ body {
 }
 
         :root{
-            --text-color: white;
+            /*--text-color: white;*/
             --font-size: 1em;
             --heading-font-size: 1.5em;
             --backgroung-color: rgb(41, 41, 46);
             --btn-hover-color: #2a2c2e;
             --btn-color: #3a3b3c;
             --box-shadow-color: #c3c3c333;
-            --font-size: 17px;
-            --font-color: white;
-            --leftBar-color: rgb(29, 28, 28);
+            /*--font-size: 17px;*/
+            /*--font-color: white;*/
+            /*--leftBar-color: rgb(29, 28, 28);*/
         }
         @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
         *{
@@ -336,7 +336,7 @@ body {
             th:action="@{/user/create}"
             th:object="${user}" enctype="multipart/form-data" class="signup">
       <div class="field">
-        <input type="text" th:field="*{fullname}" th:value="${user.fullname}"placeholder="Full Name"/>
+        <input type="text" th:field="*{fullname}" th:value="${user.fullname}" placeholder="Full Name"/>
         <p th:if="${requestError!=null}"
            th:text="${requestError['fullname']}"
            class="text-danger"></p>

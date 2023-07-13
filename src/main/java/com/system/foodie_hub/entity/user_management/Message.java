@@ -2,6 +2,9 @@ package com.system.foodie_hub.entity.user_management;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 @Builder
 @Getter
@@ -69,4 +72,6 @@ public class Message {
 //        // Getters and setters
 //    }
 
+
 }
+

@@ -1,14 +1,19 @@
 :root{
-    --text-color: white;
+    --text-color: rgb(0, 0, 0);
     --font-size: 1em;
     --heading-font-size: 1.5em;
-    --backgroung-color: rgb(41, 41, 46);
-    --btn-hover-color: #2a2c2e;
-    --btn-color: #3a3b3c;
+    --backgroung-color: rgb(240,242,245);
+    --btn-hover-color: rgb(58, 89, 248);
+    --btn-color: rgb(75,106,255);
     --box-shadow-color: #c3c3c333;
-    --font-size: 17px;
+    /*--font-size: 17px;*/
     --font-color: white;
-    --leftBar-color: rgb(29, 28, 28);
+
+    --message-box-color: rgb(225,221,217);
+    --message-box-right-color:linear-gradient(to bottom, #33ccff 0%, #6600cc 100%);
+    --input-box: rgb(198 198 198 / 30%);
+    --pop-background-color: rgb(205 223 240);
+    --leftBar-color: white;
 }
 *{
     margin: 0px;
@@ -16,12 +21,12 @@
     box-sizing: border-box;
 }
 body{
-    background-color: rgb(41, 41, 46);
+    background-color: var(--backgroung-color);
     /* scroll-behavior: smooth; */
 
 }
 .top-bar{
-    flex-grow: 100%;
+    flex-grow: 100;
 }
 #chatHeader{
     font-size: 1.5em;
@@ -42,7 +47,7 @@ body{
     flex-direction: column;
 }
 .main-box{
-    border: 2px solid black;
+    /*border: 2px solid black;*/
     height: 100vh;
 }
 
@@ -50,15 +55,14 @@ body{
 .leftBar{
     flex: 13%;
     height: 100%;
-    background-color: rgb(29, 28, 28);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    border: 2px solid blue;
+    /*border: 2px solid blue;*/
     background-color: var(--leftBar-color);
 }
 .right-box{
     height: 100%;
     flex: 87%;
-    border: 2px solid rgb(19, 222, 93);
+    /*border: 2px solid rgb(19, 222, 93);*/
     z-index: 2;
 }
 .content-center{
@@ -70,7 +74,7 @@ nav{
     display: flex;
     border-radius: 0.3rem;
     height: 80%;
-    border: 2px solid blue;
+    /*border: 2px solid blue;*/
 }
 .nav-list{
     width: 100%;
@@ -153,9 +157,9 @@ nav{
 /* --------------------------------Chat Message----------------------- */
 .message-box{
     /* font-size: 1rem; */
-    background-color:rgb(29, 28, 28);
+    background-color:var(--message-box-color);
     border-radius: 0.3rem;
-    color:aliceblue;
+    color:var(--text-color);
     padding: 0.8%;
     margin: 10px 17px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
@@ -191,9 +195,12 @@ nav{
 
 /* ---------------------Input Form of chat -------------- */
 #input1{
-    /* border: 2px solid yellow; */
-    height: 7%;
+     /*border: 2px solid white;*/
+    height: 40%;
     
+}
+#chat{
+    border: 2px solid black;
 }
 
 .inputBox{
@@ -202,9 +209,9 @@ nav{
     width: 60vw;
     height: 90%;
     /* margin: auto; */
-    background-color: rgb(27, 26, 26);
+    background-color: var(--input-box);
     border-radius: 0.7rem;
-    color: aliceblue;
+    color: var(--text-color);
 }
 #chat-input-form{
     width: 85vw;
@@ -213,6 +220,7 @@ nav{
     justify-content: center;
 }
 .send-btn{
+    background: linear-gradient(to bottom, #33ccff 0%, #6600cc 100%);
     height:60%;
     width: 6.5%;
     align-self: center;
@@ -227,7 +235,7 @@ nav{
 }
 .li-items:hover{
     cursor: pointer;
-    background-color: var(--btn-hover-color);
+    background-color: var(--message-box-color);
 }
 .upinner-boxsize:hover{
     background-color: var(--btn-hover-color);
@@ -241,16 +249,15 @@ nav{
 } */
 
 .btn{
-    color: aliceblue;
-    background-color:rgb(29, 28, 28);
+    color: white;
+    background-color:var(--btn-color);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     border-radius: 10%;
     cursor: pointer;
 
 }
 .active-room{
-    /* background-color: #08529d; */
-    background-color: #3d5365;
+    background: var(--message-box-right-color);
     box-shadow: 0 0 0.5em 0.1em #c3c3c333;
 }
 
@@ -265,7 +272,7 @@ nav{
 /* BackGround Image */
 .first-box{
     height: 25%;
-    border: 2px solid white;
+    /*border: 2px solid white;*/
     display:flex;
     align-items: center;
     justify-content: space-between;
@@ -297,7 +304,7 @@ nav{
 /* =================== USer RElated =========================*/
 #upper-box{
     height: 30%;
-    border: 2px solid red;
+    /*border: 2px solid red;*/
     flex-grow:1;
     width: 100%;
 }
@@ -305,7 +312,7 @@ nav{
     height:120px;
     width: 120px;
     border-radius: 50%;
-    border: 2px solid white;
+    /*border: 2px solid white;*/
     z-index: 2;
     
 }
@@ -336,7 +343,7 @@ nav{
     margin-left: 0.5rem;
 }
 .li-items.active{
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid rgb(75,106,255);
     font-weight: bold;
 }
 .mid-nav{
@@ -351,12 +358,16 @@ nav{
     display: none;
 }
 #content-pers{
-    /* display:none; */
-
+     display:none;
 }
 #content-contact{
     display: none;
-
+}
+#content-contact.active{
+    display: flex;
+}
+#content-pers.active{
+    display: flex;
 }
 .content-box{
     display: flex;
@@ -372,18 +383,18 @@ nav{
     width: 24%;
     height: 9%;
     background-color: var(--backgroung-color);
-    color: white;
+    color: var(--text-color);
     border-radius: 1%;
 }
 
 /* FOOTER */
 footer{
     align-items: flex-end;
-    border: 2px solid rgb(0, 11, 128);
+    /*border: 2px solid rgb(0, 11, 128);*/
 }
 footer h4{
     text-align: center;
-    color: var(--font-color);
+    color:black;
     font-size: 13px;
 }
 
@@ -391,6 +402,10 @@ footer h4{
 .text{
     color: var(--text-color);
     font-size: var(--font-size);
+}
+.rightMsg-box{
+    background: var(--message-box-right-color);
+    color: white;
 }
 .upinner-boxsize{
     padding: 0.4em;
@@ -404,7 +419,7 @@ footer h4{
 
 /*------------------------------ Utility Classes ------------------------------*/
 .text{
-    color: white;
+    color: var(--text-color);
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .center {
@@ -443,8 +458,8 @@ footer h4{
 
   .header {
     width: 100%;
-    background-color: #333;
-    color: #fff;
+      background-color: white;
+      color: #000000;
     padding: 20px;
     text-align: center;
   }
@@ -456,10 +471,10 @@ footer h4{
     scroll-behavior: smooth;
   }
   p, h2 {
-    color: white;
-    line-height: 1.6;
+      color: var(--text-color);
+    line-height: 0.6;
     margin-bottom: 20px;
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
     #abImg {
@@ -469,3 +484,97 @@ footer h4{
     height: 30%;
     border-radius: 10%;
   }
+/* ============================> POPUP <================================*/
+.popup{
+    /* display: ; */
+    position: fixed;
+    top: 34%;
+    right: 27%;
+    height: 30%;
+    width: 32%;
+    border: 2px solid white;
+    z-index: 5;
+    background-color: var(--pop-background-color);
+    /* justify-content: center;
+    align-items: center; */
+    /* row-gap: 10%; */
+
+}
+.popup form{
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    flex: 1;
+    align-content: center;
+    row-gap: 10%;
+
+}
+.pop-close{
+    margin-top: 2%;
+    margin-right: 5%;
+    align-self: flex-end;
+    color:black;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: var(--font-size);
+
+}
+.inside-pop{
+    /* flex: 1; */
+    justify-content: center;
+    align-items: center;
+    row-gap: 10%;
+    height: 10%;
+}
+
+#edit-image{
+    display: none;
+}
+#edit-image.active{
+    display: flex;
+}
+#edit-name{
+     display: none;
+}
+#edit-name.active{
+    display: flex;
+}
+
+.input-box{
+    width: 80%;
+    height: 16%;
+    padding: 2%;
+    background-color: var(--input-box);
+    border-radius: 0.7rem;
+    color: var(--text-color);
+}
+#bottom-btn{
+    width: 35%;
+    height: 100%;
+}
+#btm-btn{
+    height: 100%;
+    width: 100%;
+}
+#inp-img{
+    margin-left: 3%;
+    width: 50%;
+    height: 100%;
+}
+.inp-img{
+    height: 40%;
+}
+.ins-pop{
+    flex:1;
+    justify-content: center;
+    align-items: center;
+    row-gap: 10%;
+}
+#btm-btn1{
+    height: 100%;
+    width: 100%;
+}
+#bottom-btn1{
+    width: 35%;
+    height: 10%;
+}

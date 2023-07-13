@@ -7,14 +7,18 @@ import com.system.foodie_hub.pojo.user_management.UserPojo;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
     UserPojo save(UserPojo userPojo) throws IOException;
+    void update(UserPojo userPojo) throws IOException;
+    void update2(UserPojo userPojo) throws IOException;
 
     List<User> fetchAll();
 
     User fetchById(Integer id);
+    User fetchByEmail(String email);
 
     void deleteById(Integer id);
 

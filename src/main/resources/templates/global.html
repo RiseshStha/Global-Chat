@@ -11,6 +11,7 @@
     <link rel="stylesheet" th:href="@{css/style.css}" />
     <link rel="stylesheet" th:href="@{css/phone.css}" />
     <title>Global Chat</title>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
   </head>
   <body>
     <div class="flex-box main-box">
@@ -22,7 +23,7 @@
               <a th:href="@{/globalchat}" class="list btn active-room">Global Chat</a>
             </li>
             <li id="aboutUs">
-              <a th:href="@{/aboutus}" class="list btn active-room">About Us</a>
+              <a th:href="@{/aboutus}" class="list btn">About Us</a>
             </li>
           </ul>
         </nav>
@@ -30,10 +31,10 @@
           <ul class="nav-list">
             <li id="userAcc">
 <!--              <a href="Profile.html" class="list btn active-room">Profile</a>-->
-              <a th:href="@{/profile}" class="list btn active-room">Profile</a>
+              <a th:href="@{/profile}" class="list btn">Profile</a>
             </li>
             <li id="logout">
-              <a th:href="@{/logout}" class="list btn active-room">Logout</a>
+              <a th:href="@{/logout}" class="list btn">Logout</a>
             </li>
           </ul>
         </div>
@@ -59,73 +60,34 @@
               Welcome to the Global Chat
             </h4>
           </div>
-          <div class="chat-message flex-box flex-column">
-            <div class="message-box right grey-bg">
-              <div class="message-sender">Risesh</div>
-              <div class="message-text">
-                Hello World Lorem, ipsum dolor sit amet consectetur adipisicing
-                elit. Ipsa eaque perspiciatis reprehenderit unde vel quaerat
-                ipsam corrupti, quod consequuntur maxime?
+          <div th:each="message:${messages}" class="chat-message flex-box flex-column">
+              <div  th:if="${#strings.equals(message.getEmail(), currentuser)}"
+                       class="message-box grey-bg right rightMsg-box">
+                  <div class="message-sender" th:text="${message.sender}"></div>
+                  <div class="message-text" th:text="${message.content}">
+                  </div>
+                  <div class="message-timestamp" th:text="${message.time}"></div>
               </div>
-              <div class="message-timestamp">12:33</div>
-            </div>
-            <div class="message-box grey-bg">
-              <div class="message-sender">Risesh</div>
-              <div class="message-text">
-                Hello World Lorem, ipsum dolor sit amet consectetur adipisicing
-                elit. Ipsa eaque perspiciatis reprehenderit unde vel quaerat
-                ipsam corrupti, quod consequuntur maxime?
+              <div th:if="${!#strings.equals(message.getEmail(), currentuser)}"
+                       class="message-box grey-bg">
+                  <div class="message-sender" th:text="${message.sender}"></div>
+                  <div class="message-text" th:text="${message.content}">
+                  </div>
+                  <div class="message-timestamp" th:text="${message.time}"></div>
               </div>
-              <div class="message-timestamp">12:33</div>
-            </div>
-            <div class="message-box right grey-bg">
-              <div class="message-sender">Risesh</div>
-              <div class="message-text">
-                Hello World Lorem, ipsum dolor sit amet consectetur adipisicing
-                elit. Ipsa eaque perspiciatis reprehenderit unde vel quaerat
-                ipsam corrupti, quod consequuntur maxime?
-              </div>
-              <div class="message-timestamp">12:33</div>
-            </div>
-            <div class="message-box grey-bg">
-              <div class="message-sender">Risesh</div>
-              <div class="message-text">
-                Hello World Lorem, ipsum dolor sit amet consectetur adipisicing
-                elit. Ipsa eaque perspiciatis reprehenderit unde vel quaerat
-                ipsam corrupti, quod consequuntur maxime?
-              </div>
-              <div class="message-timestamp">12:33</div>
-            </div>
-            <div class="message-box right grey-bg">
-              <div class="message-sender">Risesh</div>
-              <div class="message-text">
-                Hello World Lorem, ipsum dolor sit amet consectetur adipisicing
-                elit. Ipsa eaque perspiciatis reprehenderit unde vel quaerat
-                ipsam corrupti, quod consequuntur maxime?
-              </div>
-              <div class="message-timestamp">12:33</div>
-            </div>
-            <div class="message-box grey-bg">
-              <div class="message-sender">Risesh</div>
-              <div class="message-text">
-                Hello World Lorem, ipsum dolor sit amet consectetur adipisicing
-                elit. Ipsa eaque perspiciatis reprehenderit unde vel quaerat
-                ipsam corrupti, quod consequuntur maxime?
-              </div>
-              <div class="message-timestamp">12:33</div>
-            </div>
+
           </div>
         </div>
         <div id="input1">
-          <form action="#" id="chat-input-form">
+          <form th:method="@{post}" th:action="@{/trigger}" id="chat-input-form">
             <input
               type="text"
-              name="chat"
+              name="content"
               id="chat"
               placeholder="Enter a message"
               class="inputBox"
             />
-            <button type="submit" class="send-btn btn" th:method="@{post}" th:action="@{/sendMessage}">Send</button>
+            <button type="submit" value="submit" class="send-btn btn">Send</button>
           </form>
         </div>
         <!-- ============ FOOTER =================== -->
@@ -135,7 +97,7 @@
       </div>
     </div>
   </body>
-  <script th:src="@{Js/client.js}"></script>
+<!--  <script th:src="@{Js/client.js}"></script>-->
 <!--  <script>-->
 <!--    const menuBtn = document.querySelector("#check-btn");-->
 <!--    const leftBar = document.querySelector(".leftBar");-->
@@ -156,5 +118,32 @@
 <!--    closeBtn.onclick = () => closePage();-->
 <!--    menuBtn.onclick = () => openPage();-->
 <!--  </script>-->
+  <script>
+      const container = document.querySelector('.container');
+      container.scrollTop = container.scrollHeight;
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('07702d38cfb7823f21b8', {
+      cluster: 'ap2'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+        const l = document.getElementsByClassName("chat-message").length;
+        console.log(l);
+      // alert(JSON.stringify(data))
+      document.getElementsByClassName("chat-message")[l-1].insertAdjacentHTML("beforeend",
+              ` <div
+                       class="message-box rightMsg-box">
+                  <div class="message-sender">${data.text.sender}</div>
+                  <div class="message-text">${data.text.content}
+                  </div>
+                  <div class="message-timestamp" >${data.text.time}</div>
+              </div>`);
+        container.scrollTop = container.scrollHeight;
+
+    });
+  </script>
 </html>
 <!--Justify content for making right and left bar-->

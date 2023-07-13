@@ -63,7 +63,7 @@
                   th:placeholder="${userDetail.getFullName()}"
           />
 
-                  <div id="bottom-btn1">
+          <div id="bottom-btn1">
             <button id="btm-btn1" type="submit" class="btn">Update</button>
           </div>
         </div>
@@ -98,14 +98,14 @@
       <!-- ============ Background Image =================== -->
       <div class="bg-image">
         <img
-                src="https://cdn.pixabay.com/photo/2017/12/10/20/56/feather-3010848_1280.jpg"
+                src="https://codetheweb.blog/assets/img/posts/css-advanced-background-images/cover.jpg"
                 alt=""
         />
       </div>
       <div class="first-box">
         <div class="upinner-box flex-box">
           <img
-                  th:src="'data:image/png;base64,'+${userList.imageBase64}"
+                  th:src="${userDetail.getImage()}"
                   id="profile-img"
                   alt=""
           />

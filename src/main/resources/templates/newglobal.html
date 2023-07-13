@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+  />
+  <link rel="stylesheet" th:href="@{css/style.css}" />
+  <link rel="stylesheet" th:href="@{css/phone.css}" />
+  <title>Global Chat</title>
+  <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+</head>
+<body>
+<div class="flex-box main-box">
+  <div class="leftBar flex-column">
+    <!-- <div class="left-box flex-column"> -->
+    <nav class="nav-bar">
+      <ul class="text nav-list">
+        <li id="globalChat">
+          <a th:href="@{/globalchat}" class="list btn active-room">Global Chat</a>
+        </li>
+        <li id="aboutUs">
+          <a th:href="@{/aboutus}" class="list btn active-room">About Us</a>
+        </li>
+      </ul>
+    </nav>
+    <div id="userAccount">
+      <ul class="nav-list">
+        <li id="userAcc">
+          <!--              <a href="Profile.html" class="list btn active-room">Profile</a>-->
+          <a th:href="@{/profile}" class="list btn active-room">Profile</a>
+        </li>
+        <li id="logout">
+          <a th:href="@{/logout}" class="list btn active-room">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <input type="checkbox" id="check" />
+  <label for="check" id="check-btn">
+    <i class="fas fa-bars"></i>
+  </label>
+  <div class="menu-close">
+    <label id="close-icon">
+      <i class="fa fa-window-close" aria-hidden="true"></i>
+    </label>
+  </div>
+  <!-- ============RIGHT BOX=================== -->
+  <div class="right-box flex-box flex-column">
+    <div class="top-bar">
+      <!-- <img id="menu" src="menu.png" alt=""> -->
+      <h3 class="heading text center" id="chatHeader">Global Chat</h3>
+    </div>
+    <div class="container flex-box hideScroll">
+      <div class="starterLine">
+        <h4 class="text center" id="greetHeader">
+          Welcome to the Global Chat
+        </h4>
+      </div>
+      <div th:each="message:${messages}" class="chat-message flex-box flex-column">
+        <div  th:if="${#strings.equals(message.getEmail(), currentuser)}"
+              class="message-box grey-bg right">
+          <div class="message-sender" th:text="${message.sender}"></div>
+          <div class="message-text" th:text="${message.content}">
+          </div>
+          <div class="message-timestamp" th:text="${message.time}"></div>
+        </div>
+        <div th:if="${!#strings.equals(message.getEmail(), currentuser)}"
+             class="message-box grey-bg">
+          <div class="message-sender" th:text="${message.sender}"></div>
+          <div class="message-text" th:text="${message.content}">
+          </div>
+          <div class="message-timestamp" th:text="${message.time}"></div>
+        </div>
+
+      </div>
+    </div>
+    <div id="input1">
+      <form th:method="@{post}" th:action="@{/trigger}" id="chat-input-form">
+        <input
+                type="text"
+                name="content"
+                id="chat"
+                placeholder="Enter a message"
+                class="inputBox"
+        />
+        <button type="submit" value="submit" class="send-btn btn">Send</button>
+      </form>
+    </div>
+    <!-- ============ FOOTER =================== -->
+    <footer>
+      <h4>Copyright &copy www.globalchat.org</h4>
+    </footer>
+  </div>
+</div>
+</body>
+
+<script>
+  const container = document.querySelector('.container');
+  container.scrollTop = container.scrollHeight;
+  // Enable pusher logging - don't include this in production
+  Pusher.logToConsole = true;
+
+  var pusher = new Pusher('07702d38cfb7823f21b8', {
+    cluster: 'ap2'
+  });
+
+  var channel = pusher.subscribe('my-channel');
+  channel.bind('my-event', function(data) {
+    // alert(JSON.stringify(data))
+    // document.getElementsByClassName("chat-message")[10].insertAdjacentHTML("beforeend",
+    //         ` <div
+    //                  class="message-box grey-bg">
+    //             <div class="message-sender">${data.text.sender}</div>
+    //             <div class="message-text">${data.text.content}
+    //             </div>
+    //             <div class="message-timestamp" >${data.text.time}</div>
+    //         </div>`);
+    $(".chat-message").append(
+            ` <div
+                       class="message-box grey-bg">
+                  <div class="message-sender">${data.text.sender}</div>
+                  <div class="message-text">${data.text.content}
+                  </div>
+                  <div class="message-timestamp" >${data.text.time}</div>
+              </div>`);
+  });
+</script>
+</html>
+<!--Justify content for making right and left bar-->

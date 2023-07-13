@@ -6,6 +6,9 @@ import com.system.foodie_hub.pojo.user_management.UserPojo;
 import com.system.foodie_hub.services.user_management.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -63,6 +66,36 @@ public class UserController {
 //
 //        return "redirect:/user/list";
 //    }
+    @PostMapping("save")
+    public String saveData(@Valid UserPojo userPojo,
+                           BindingResult bindingResult) throws IOException {
+        if(bindingResult.hasErrors()){
+            System.out.println(bindingResult);
+
+            return null;
+        }
+        userService.save(userPojo);
+        return "data saved";
+    }
+    @PostMapping("save2")
+    public String saveData2(@Valid UserPojo userPojo,
+                           BindingResult bindingResult) throws IOException {
+        if(bindingResult.hasErrors()){
+            System.out.println(bindingResult);
+
+            return null;
+        }
+        userService.update(userPojo);
+        return "redirect:/profile";
+    }
+
+    @PostMapping("update2")
+    public String saveData3(@Valid UserPojo userPojo,
+                           BindingResult bindingResult) throws IOException {
+        userService.update2(userPojo);
+        return "redirect:/profile";
+    }
+
     @PostMapping("/create")
     public String createUser(@Valid UserPojo userPojo,
                              BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
@@ -70,22 +103,21 @@ public class UserController {
         Map<String, String> requestError = validateRequest(bindingResult);
         if (requestError != null) {
             redirectAttributes.addFlashAttribute("requestError", requestError);
-            return "redirect:/login";
+            return "redirect:/Profile";
         }
 
         userService.save(userPojo);
         redirectAttributes.addFlashAttribute("successMsg", "User saved successfully");
-
-
         return "redirect:/login";
     }
 
     @GetMapping("/edit/{id}")
-    public String editUser(@PathVariable("id") Integer id, Model model) {
+    public String editUser(@PathVariable Integer id, Model model) {
         User user = userService.fetchById(id);
         model.addAttribute("user", new UserPojo(user));
-        return "register";
+        return "Profile";
     }
+
 
     @GetMapping("/list")
     public String getUSerList(Model model) {
@@ -131,19 +163,24 @@ public class UserController {
     //    private String convertImageToBase64(String filename) {
 //        String filePath = System.getProperty("user.dir") + "/canteen_mgmt/" + filename;
 //    }
-    public String getImageBase64(String fileName) {
-        String filePath = System.getProperty("user.dir") + "/canteen_mgmt/";
-        File file = new File(filePath + fileName);
-        byte[] bytes = new byte[0];
-        try {
-            bytes = Files.readAllBytes(file.toPath());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-        String base64 = Base64.getEncoder().encodeToString(bytes);
-        return base64;
+
+    @GetMapping("/edit")
+    public String getUserId(Model model){
+        User user = getUser(getCurrentUser());
+        model.addAttribute("currentUser",user);
+        return "Profile";
     }
+    public String getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        return currentUsername;
+    }
+    public User getUser(String email) {
+        User u = userService.fetchByEmail(email);
+        return u;
+    }
+
+
 
 
 }
