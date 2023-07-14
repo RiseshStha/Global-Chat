@@ -145,6 +145,7 @@ nav{
     flex-grow: 1;
     flex-direction: column;
     /* border: 2px solid blue; */
+    /*transform: rotate(180deg);*/
     overflow-y:auto;
     margin-bottom: 1%;
     scroll-behavior: smooth;
